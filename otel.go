@@ -10,7 +10,7 @@ import (
 	sdktrace "go.opentelemetry.io/otel/sdk/trace"
 )
 
-func initTracer() {
+func InitTracer() {
 	ctx := context.Background()
 
 	client := otlptracehttp.NewClient()
