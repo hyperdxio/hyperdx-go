@@ -60,7 +60,7 @@ func New(token string, options ...SenderOptionFunc) (*HyperdxSender, error) {
 	l := &HyperdxSender{
 		buf:               bytes.NewBuffer(make([]byte, maxSize)),
 		drainDuration:     defaultDrainDuration,
-		url:               fmt.Sprintf("%s/?hdx_token=%s", defaultHost, token),
+		url:               fmt.Sprintf("%s/?hdx_token=%s&hdx_platform=go", defaultHost, token),
 		token:             token,
 		dir:               fmt.Sprintf("%s%s%s%s%d", os.TempDir(), string(os.PathSeparator), "hyperdx-buffer", string(os.PathSeparator), time.Now().UnixNano()),
 		diskThreshold:     defaultDiskThreshold,
@@ -109,7 +109,7 @@ func SetTempDirectory(dir string) SenderOptionFunc {
 // SetUrl set the url which maybe different from the defaultUrl
 func SetUrl(url string) SenderOptionFunc {
 	return func(l *HyperdxSender) error {
-		l.url = fmt.Sprintf("%s/?hdx_token=%s", url, l.token)
+		l.url = fmt.Sprintf("%s/?hdx_token=%s&hdx_platform=go", url, l.token)
 		l.debugLog("logsender.go: Setting url to %s\n", l.url)
 		return nil
 	}
